@@ -1,0 +1,77 @@
+/* Brand CSS Variables - Updated dynamically from BrandTab */
+:root {
+  --brand-primary: #0027FF;
+  --brand-secondary: #03FFB2;
+  --brand-accent: #F97316;
+  --brand-text: #1F2937;
+  --brand-background: #FFFFFF;
+  
+  --brand-font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --brand-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --brand-spacing-sm: 8px;
+  --brand-spacing-md: 16px;
+  --brand-spacing-lg: 24px;
+  
+  --brand-border-radius: 8px;
+  --brand-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Apply brand styles to elements */
+.brand-element {
+  font-family: var(--brand-font-body);
+}
+
+.brand-heading {
+  font-family: var(--brand-font-heading);
+  color: var(--brand-primary);
+}
+
+.brand-text {
+  font-family: var(--brand-font-body);
+  color: var(--brand-text);
+}
+
+.brand-cta {
+  background-color: var(--brand-primary);
+  color: var(--brand-background);
+  border-radius: var(--brand-border-radius);
+  box-shadow: var(--brand-shadow);
+  font-family: var(--brand-font-body);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.brand-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.brand-card {
+  background-color: var(--brand-background);
+  border-radius: var(--brand-border-radius);
+  box-shadow: var(--brand-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.brand-widget {
+  border-radius: var(--brand-border-radius);
+  box-shadow: var(--brand-shadow);
+  font-family: var(--brand-font-body);
+}
+
+/* Responsive brand colors for data widgets */
+.brand-widget.primary {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+.brand-widget.secondary {
+  background-color: var(--brand-secondary);
+  color: white;
+}
+
+.brand-widget.accent {
+  background-color: var(--brand-accent);
+  color: white;
+}
