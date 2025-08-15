@@ -118,7 +118,9 @@ export function TemplateEditor({
         name: currentTemplate.name,
         description: currentTemplate.description || '',
         category: currentTemplate.category || 'Custom',
-        elements: currentTemplate.elements || []
+        elements: currentTemplate.elements || [],
+        // Preserve template_library_id if it exists
+        ...(currentTemplate.template_library_id && { template_library_id: currentTemplate.template_library_id })
       }
       
       let savedTemplate

@@ -350,7 +350,8 @@ export function TemplatesTab({ onOpenTemplateEditor }) {
       const library = await createTemplateLibrary({
         name: `AI Templates - ${new Date().toLocaleDateString('nl-NL')}`,
         description: `AI-gegenereerde templates gebaseerd op ${aiAnalysis.documentCount} kennisdocumenten`,
-        icon: '🤖'
+        icon: '🤖',
+        user_id: 'default-user' // TODO: Replace with actual user ID when auth is implemented
       })
 
       if (!library || !library.id) {
@@ -362,7 +363,6 @@ export function TemplatesTab({ onOpenTemplateEditor }) {
         await templateService.create({
           ...template,
           template_library_id: library.id,
-          project_id: currentProject.id,
           is_custom: true
         })
       }

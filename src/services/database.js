@@ -290,6 +290,7 @@ export const templateService = {
         name: templateData.name,
         description: templateData.description || '',
         category: templateData.category || 'Custom',
+        template_library_id: templateData.template_library_id || null,
         is_custom: templateData.is_custom !== undefined ? templateData.is_custom : true,
         is_hidden: false
       }])
@@ -324,13 +325,16 @@ export const templateService = {
 
   // Update template
   async update(templateId, templateData) {
+    // Build update object with only provided fields
+    const updateData = {}
+    if (templateData.name !== undefined) updateData.name = templateData.name
+    if (templateData.description !== undefined) updateData.description = templateData.description
+    if (templateData.category !== undefined) updateData.category = templateData.category
+    if (templateData.template_library_id !== undefined) updateData.template_library_id = templateData.template_library_id
+
     const { data, error } = await supabase
       .from(TABLES.TEMPLATES)
-      .update({
-        name: templateData.name,
-        description: templateData.description,
-        category: templateData.category,
-      })
+      .update(updateData)
       .eq('id', templateId)
       .select()
       .single()
@@ -629,8 +633,24 @@ export const userAssetService = {
 
 // Template Library operations
 export const templateLibraryService = {
-  // Get all template libraries
-  async getAll() {
+  // Get all template libraries (global + user-specific)
+  async getAll(userId = null) {
+    const { data, error } = await supabase
+      .from(TABLES.TEMPLATE_LIBRARIES)
+      .select('*')
+      .or(`user_id.is.null,user_id.eq.${userId || 'null'}`)
+      .order('created_at', { ascending: true })
+    
+    if (error) {
+      console.warn('Template libraries table not available yet:', error)
+      return []
+    }
+    
+    return data || []
+  },
+
+  // Get all template libraries (legacy method for backwards compatibility)
+  async getAllGlobal() {
     const { data, error } = await supabase
       .from(TABLES.TEMPLATE_LIBRARIES)
       .select('*')
@@ -652,6 +672,7 @@ export const templateLibraryService = {
         name: libraryData.name,
         description: libraryData.description || '',
         icon: libraryData.icon || '📁',
+        user_id: libraryData.user_id || null,
         is_default: libraryData.is_default || false
       }])
       .select()

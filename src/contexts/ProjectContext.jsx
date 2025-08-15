@@ -426,7 +426,8 @@ export function ProjectProvider({ children }) {
   // Load templates from Supabase
   const loadTemplateLibraries = async () => {
     try {
-      const libraries = await templateLibraryService.getAll()
+      // TODO: Replace 'default-user' with actual user ID when auth is implemented
+      const libraries = await templateLibraryService.getAll('default-user')
       dispatch({ type: ActionTypes.LOAD_TEMPLATE_LIBRARIES, payload: libraries })
     } catch (error) {
       console.error('Error loading template libraries:', error)
